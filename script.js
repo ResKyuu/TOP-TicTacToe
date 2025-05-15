@@ -211,7 +211,35 @@ const tictactoe = (function () {
   return { makeMove, addPlayer, getPlayers, getGameBoard, gameReset };
 })();
 
-/*
-TODO
+/* HOW A GAME WORKS IN CONSOLE 
 
+- 1: tictactoe.addPlayer("name", "marker"); \\ this adds the first player to the game.
+- 2: tictactoe.addPlayer("name", "marker"); \\ this adds the second player to the game.
+- 3: tictactoe.makeMove(position); \\ the first player starts by making a move at a position in the Board. After the turn is done it switches to the next player.
+- 4: Just keep on playing until either of the 2 players has won or the game has turned into a draw.
+
+! tictactoe.gameReset(); \\ Resets the entire game, needing to input new players etc.
+*/
+
+document.addEventListener("DOMContentLoaded", function () {
+  const dialog = document.getElementById("dialog");
+
+  if (dialog) {
+    dialog.showModal();
+  }
+
+  const startGameBtn = document.getElementById("startGameBtn");
+
+  startGameBtn.addEventListener("click", () => {
+    dialog.close();
+  });
+});
+
+/* TODO
+- Check dialog name input fields
+- Add fields for the marker the user can choose
+- Check that both users have not chosen the same marker
+- Initiliaze the players after press of the start game button
+- Have the HTML gameboard display the actual contents of the gameBoard array
+- Make entire user interactive game logic
 */

@@ -1,0 +1,148 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+html,
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.mainContainer {
+  border-radius: 15px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 45em;
+  width: 40em;
+  background-color: rgba(0, 0, 0, 0.281);
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.header > h1 {
+  color: rgb(255, 255, 255);
+  font-size: 4em;
+  text-align: center;
+  margin-bottom: 23px;
+}
+
+#gameBoard {
+  width: 25em;
+  height: 25em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#gameBoard > * {
+  background-color: rgb(255, 255, 255);
+}
+
+.valueContents {
+  width: 29em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9em;
+  gap: 5px;
+}
+
+.playerScores {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.currentTurn > h3 {
+  color: rgb(0, 0, 0);
+  font-size: 2em;
+  text-align: center;
+}
+
+.currentTurn {
+  margin-bottom: 15px;
+}
+
+.gameResetBtn > button {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: rgba(99, 99, 99, 0.521) 0px 2px 8px 0px;
+}
+
+#dialog {
+  padding: 2em;
+  border-radius: 10px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+#dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#dialog h2 {
+  margin-bottom: 1em;
+}
+
+#dialog p {
+  margin: 0.5em 0;
+}
+
+#dialog input {
+  padding: 0.5em;
+  margin-bottom: 1em;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#dialog button {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-top: 1em;
+  box-shadow: rgba(99, 99, 99, 0.521) 0px 2px 8px 0px;
+}
+
+#dialog::backdrop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  transition: backdrop-filter 0.3s ease;
+}

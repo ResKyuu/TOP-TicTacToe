@@ -7,5 +7,46 @@
     <link rel="stylesheet" href="style.css" />
     <title>TOP | Tic Tac Toe</title>
   </head>
-  <body></body>
+  <body>
+    <dialog id="dialog">
+      <form method="dialog">
+        <div class="dialogContent">
+          <h2>Welcome to Tic Tac Toe!</h2>
+          <p>Player 1, please enter your name and choose your marker:</p>
+          <input type="text" id="player1Name" />
+          <p>Player 2, please enter your name and choose your marker:</p>
+          <input type="text" id="player2Name" />
+          <button id="startGameBtn" type="button">Start Game</button>
+        </div>
+      </form>
+    </dialog>
+    <div class="mainContainer">
+      <div class="header">
+        <h1>Tic Tac Toe</h1>
+      </div>
+      <div class="tictactoeGameBoard" id="gameBoard">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="valueContents">
+        <div class="playerScores">
+          <p>Player name, Score: 0</p>
+          <p>Player name, Score: 0</p>
+        </div>
+        <div class="currentTurn">
+          <h3>Current Turn:<br />name, marker</h3>
+        </div>
+        <div class="gameResetBtn">
+          <button>Game Reset</button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
