@@ -231,15 +231,93 @@ document.addEventListener("DOMContentLoaded", function () {
   const startGameBtn = document.getElementById("startGameBtn");
 
   startGameBtn.addEventListener("click", () => {
+    const form = document.querySelector("form");
+    const player1Name = document.querySelector("#player1Name");
+    const player1MarkerX = document.querySelector("#player1MarkerX");
+    const player1MarkerO = document.querySelector("#player1MarkerO");
+
+    const player2Name = document.querySelector("#player2Name");
+    const player2MarkerX = document.querySelector("#player2MarkerX");
+    const player2MarkerO = document.querySelector("#player2MarkerO");
+
+    if (
+      (player1MarkerO.checked === true && player2MarkerO.checked === true) ||
+      (player1MarkerX.checked === true && player2MarkerX.checked === true)
+    ) {
+      alert("Please use different Markers!");
+      return;
+    }
+
+    //If player 1 takes marker X and player 2 takes marker O
+    if (player1MarkerX.checked === true && player2MarkerO.checked === true) {
+      if (player1Name.value === "" && player2Name.value === "") {
+        // if no names were entered, defaults to Player 1 and Player 2
+        tictactoe.addPlayer(`Player 1`, `${player1MarkerX.value}`);
+        tictactoe.addPlayer(`Player 2`, `${player1MarkerO.value}`);
+      }
+      // if player 1 entered a name and player 2 hasn't
+      else if (player1Name.value !== "" && player2Name.value === "") {
+        tictactoe.addPlayer(`${player1Name.value}`, `${player1MarkerX.value}`);
+        tictactoe.addPlayer(`Player 2`, `${player1MarkerO.value}`);
+      }
+      // if player 1 hasnt entered a name and player 2 has
+      else if (player1Name.value === "" && player2Name.value !== "") {
+        tictactoe.addPlayer(`Player 1`, `${player1MarkerX.value}`);
+        tictactoe.addPlayer(`${player2Name.value}`, `${player1MarkerO.value}`);
+      }
+      // if both players have entered a name
+      else {
+        tictactoe.addPlayer(`${player1Name.value}`, `${player1MarkerX.value}`);
+        tictactoe.addPlayer(`${player2Name.value}`, `${player1MarkerO.value}`);
+      }
+    }
+    //Else if player 1 takes marker O and player 2 takes marker X
+    else if (
+      player1MarkerO.checked === true &&
+      player2MarkerX.checked === true
+    ) {
+      if (player1Name.value === "" && player2Name.value === "") {
+        // if no names were entered, defaults to Player 1 and Player 2
+        tictactoe.addPlayer(`Player 1`, `${player1MarkerO.value}`);
+        tictactoe.addPlayer(`Player 2`, `${player1MarkerX.value}`);
+      }
+      // if player 1 entered a name and player 2 hasn't
+      else if (player1Name.value !== "" && player2Name.value === "") {
+        tictactoe.addPlayer(`${player1Name.value}`, `${player1MarkerO.value}`);
+        tictactoe.addPlayer(`Player 2`, `${player1MarkerX.value}`);
+      }
+      // if player 1 hasnt entered a name and player 2 has
+      else if (player1Name.value === "" && player2Name.value !== "") {
+        tictactoe.addPlayer(`Player 1`, `${player1MarkerO.value}`);
+        tictactoe.addPlayer(`${player2Name.value}`, `${player1MarkerX.value}`);
+      }
+      // if both players have entered a name
+      else {
+        tictactoe.addPlayer(`${player1Name.value}`, `${player1MarkerO.value}`);
+        tictactoe.addPlayer(`${player2Name.value}`, `${player1MarkerX.value}`);
+      }
+    } else {
+      alert("Please select a marker for both players!");
+      return;
+    }
+
+    //get and display player names and scores
+    const allPlayers = tictactoe.getPlayers();
+    const player1 = allPlayers[0];
+    const player2 = allPlayers[1];
+
+    const player1DisplayName = document.querySelector("#player1NameDisplay");
+    const player2DisplayName = document.querySelector("#player2NameDisplay");
+    const currenTurnText = document.querySelector("#currentTurnText");
+    player1DisplayName.innerText = player1.name;
+    player2DisplayName.innerText = player2.name;
     dialog.close();
   });
 });
 
 /* TODO
-- Check dialog name input fields
-- Add fields for the marker the user can choose
-- Check that both users have not chosen the same marker
-- Initiliaze the players after press of the start game button
+- display current turn
+- display actual scores
 - Have the HTML gameboard display the actual contents of the gameBoard array
 - Make entire user interactive game logic
 */

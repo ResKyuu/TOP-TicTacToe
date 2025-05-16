@@ -68,6 +68,12 @@ body {
   font-weight: bold;
 }
 
+.playerScores > div > p  {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .currentTurn > h3 {
   color: rgb(0, 0, 0);
   font-size: 2em;
@@ -95,54 +101,132 @@ body {
   border-radius: 10px;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  text-align: center;
-  width: 80%;
-  max-width: 400px;
-
+  width: 90%; /* Adjusted for responsiveness */
+  max-width: 450px; /* Slightly wider for better layout */
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
+  background-color: #fff; /* Explicit background color */
 }
 
 #dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  /* transition: backdrop-filter 0.3s ease; // This was duplicated, ensure it's defined once if needed */
 }
 
 #dialog h2 {
   margin-bottom: 1em;
+  font-size: 1.6em; /* Adjusted size */
+  color: #333;
+  text-align: center;
 }
 
 #dialog p {
-  margin: 0.5em 0;
+  /* General paragraph styling within dialog */
+  margin: 1em 0 0.25em; /* Top margin, then bottom */
+  text-align: left;
+  font-size: 0.95em;
+  color: #555;
+  font-weight: bold;
 }
 
-#dialog input {
-  padding: 0.5em;
-  margin-bottom: 1em;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-#dialog button {
+#dialog button#startGameBtn {
+  /* More specific selector for the button */
   background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 1.2em;
+  padding: 12px 25px;
+  font-size: 1.1em;
   cursor: pointer;
-  margin-top: 1em;
+  margin-top: 1.5em; /* More space above the button */
   box-shadow: rgba(99, 99, 99, 0.521) 0px 2px 8px 0px;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Make button full width */
+  box-sizing: border-box;
 }
 
-#dialog::backdrop {
+#dialog button#startGameBtn:hover {
+  background-color: #333;
+}
+
+.dialogContent {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.75em; /* Adjusted gap */
+}
+
+.playerInput {
+  display: flex;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(5px);
-  transition: backdrop-filter 0.3s ease;
+  justify-content: space-between;
+  gap: 1em; /* Gap between name input and checkboxes container */
+  width: 100%;
+}
+
+.playerInput input[type="text"] {
+  flex-grow: 1;
+  padding: 0.75em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+  box-sizing: border-box;
+}
+
+.checkboxes {
+  display: flex;
+  align-items: center;
+  gap: 0.3em; /* Gap between items inside checkboxes div (label, input, label, input) */
+}
+
+.checkboxes label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.95em;
+  color: #444;
+  margin-left: 0.2em; /* Space before X/O label if needed */
+}
+
+/* New styles for radio buttons */
+.dialogContent input[type="radio"].checkboxMarker {
+  appearance: none; /* Remove default appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1.3em;
+  height: 1.3em;
+  border: 2px solid #ccc; /* Slightly thicker border for radio */
+  border-radius: 50%; /* Makes it circular */
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  margin-right: 0.2em; /* Space after radio button */
+  outline: none; /* Remove default focus outline if you add your own */
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.dialogContent input[type="radio"].checkboxMarker:checked {
+  border-color: #000; /* Border color when checked */
+}
+
+.dialogContent input[type="radio"].checkboxMarker:checked::before {
+  content: "";
+  display: block;
+  width: 0.7em; /* Size of the inner dot */
+  height: 0.7em;
+  background-color: #000; /* Color of the inner dot */
+  border-radius: 50%; /* Makes the inner dot circular */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Optional: Add a focus style for accessibility */
+.dialogContent input[type="radio"].checkboxMarker:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Example focus style */
 }

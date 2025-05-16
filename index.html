@@ -12,10 +12,53 @@
       <form method="dialog">
         <div class="dialogContent">
           <h2>Welcome to Tic Tac Toe!</h2>
+
           <p>Player 1, please enter your name and choose your marker:</p>
-          <input type="text" id="player1Name" />
+          <div class="playerInput">
+            <input type="text" id="player1Name" placeholder="Player 1 Name" />
+            <div class="checkboxes">
+              <label for="player1MarkerX">X</label>
+              <input
+                type="radio"
+                id="player1MarkerX"
+                name="player1Marker"
+                value="X"
+                class="checkboxMarker"
+              />
+              <label for="player1MarkerO">O</label>
+              <input
+                type="radio"
+                id="player1MarkerO"
+                name="player1Marker"
+                value="O"
+                class="checkboxMarker"
+              />
+            </div>
+          </div>
+
           <p>Player 2, please enter your name and choose your marker:</p>
-          <input type="text" id="player2Name" />
+          <div class="playerInput">
+            <input type="text" id="player2Name" placeholder="Player 2 Name" />
+            <div class="checkboxes">
+              <label for="player2MarkerX">X</label>
+              <input
+                type="radio"
+                id="player2MarkerX"
+                name="player2Marker"
+                value="X"
+                class="checkboxMarker"
+              />
+              <label for="player2MarkerO">O</label>
+              <input
+                type="radio"
+                id="player2MarkerO"
+                name="player2Marker"
+                value="O"
+                class="checkboxMarker"
+              />
+            </div>
+          </div>
+
           <button id="startGameBtn" type="button">Start Game</button>
         </div>
       </form>
@@ -37,11 +80,19 @@
       </div>
       <div class="valueContents">
         <div class="playerScores">
-          <p>Player name, Score: 0</p>
-          <p>Player name, Score: 0</p>
+          <div>
+            <p id="player1NameDisplay">Player name,</p>
+            <p >Score:</p>
+            <p id="player1Score">0</p>
+          </div>
+          <div>
+            <p id="player2NameDisplay">Player name,</p>
+            <p>Score:</p>
+            <p id="player2Score">0</p>
+          </div>
         </div>
         <div class="currentTurn">
-          <h3>Current Turn:<br />name, marker</h3>
+          <h3 id="currentTurnText">Current Turn:<br />name, marker</h3>
         </div>
         <div class="gameResetBtn">
           <button>Game Reset</button>
