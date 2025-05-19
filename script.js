@@ -29,6 +29,10 @@ const tictactoe = (function () {
     if (gamePlayer.length === 2) {
       currentPlayerIndex = (currentPlayerIndex + 1) % 2;
       const nextPlayer = gamePlayer[currentPlayerIndex];
+
+      const currenTurnText = document.querySelector("#currentTurnText");
+      currenTurnText.innerText = `Current turn: ${nextPlayer.name}, ${nextPlayer.marker}`;
+
       console.log(`Turn switched. It is now ${nextPlayer.name}'s turn!`);
     }
   }
@@ -200,15 +204,38 @@ const tictactoe = (function () {
     turns = 0;
     roundWin = false;
     console.log(`Game draw! Try again.`);
+    updateFrontEndGameBoard();
   }
 
   function newRound() {
     turns = 0;
     currentPlayerIndex = 0;
     gameBoard.Board = ["", "", "", "", "", "", "", "", ""];
+    updateFrontEndGameBoard();
   }
 
-  return { makeMove, addPlayer, getPlayers, getGameBoard, gameReset };
+  function getCurrentPlayerIndex() {
+    return currentPlayerIndex;
+  }
+
+  function updateFrontEndGameBoard() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell, index) => {
+      const gameBoard = tictactoe.getGameBoard();
+      cell.innerText = gameBoard[index];
+    });
+  }
+
+  function updateFrontEndPlayerScore(currentPlayer) {}
+
+  return {
+    makeMove,
+    addPlayer,
+    getPlayers,
+    getGameBoard,
+    gameReset,
+    getCurrentPlayerIndex,
+  };
 })();
 
 /* HOW A GAME WORKS IN CONSOLE 
@@ -303,21 +330,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //get and display player names and scores
     const allPlayers = tictactoe.getPlayers();
-    const player1 = allPlayers[0];
-    const player2 = allPlayers[1];
 
     const player1DisplayName = document.querySelector("#player1NameDisplay");
     const player2DisplayName = document.querySelector("#player2NameDisplay");
     const currenTurnText = document.querySelector("#currentTurnText");
-    player1DisplayName.innerText = player1.name;
-    player2DisplayName.innerText = player2.name;
+    //Player X, Score: ...
+    player1DisplayName.innerText = allPlayers[0].name;
+    player2DisplayName.innerText = allPlayers[1].name;
+
+    //Turn display
+    currenTurnText.innerText = `Current turn: ${
+      allPlayers[tictactoe.getCurrentPlayerIndex()].name
+    }, ${allPlayers[tictactoe.getCurrentPlayerIndex()].marker}`;
     dialog.close();
+  });
+
+  const cells = document.querySelectorAll(".cell");
+
+  cells.forEach((cell, index) => {
+    console.log(cell, index);
+
+    cell.addEventListener("click", () => {
+      tictactoe.makeMove(index);
+      const gameBoard = tictactoe.getGameBoard();
+      cell.innerText = gameBoard[index];
+    });
   });
 });
 
 /* TODO
-- display current turn
-- display actual scores
-- Have the HTML gameboard display the actual contents of the gameBoard array
-- Make entire user interactive game logic
+display player scores properly
+styling for the gameboard markers
 */

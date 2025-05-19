@@ -15,7 +15,13 @@
 
           <p>Player 1, please enter your name and choose your marker:</p>
           <div class="playerInput">
-            <input type="text" id="player1Name" placeholder="Player 1 Name" />
+            <input
+              type="text"
+              id="player1Name"
+              placeholder="Player 1 Name"
+              minlength="3"
+              maxlength="10"
+            />
             <div class="checkboxes">
               <label for="player1MarkerX">X</label>
               <input
@@ -38,7 +44,13 @@
 
           <p>Player 2, please enter your name and choose your marker:</p>
           <div class="playerInput">
-            <input type="text" id="player2Name" placeholder="Player 2 Name" />
+            <input
+              type="text"
+              id="player2Name"
+              placeholder="Player 2 Name"
+              minlength="3"
+              maxlength="10"
+            />
             <div class="checkboxes">
               <label for="player2MarkerX">X</label>
               <input
@@ -68,21 +80,21 @@
         <h1>Tic Tac Toe</h1>
       </div>
       <div class="tictactoeGameBoard" id="gameBoard">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div class="cell" ></div>
+        <div class="cell" ></div>
+        <div class="cell" ></div>
+        <div class="cell" ></div>
+        <div class="cell" ></div>
+        <div class="cell" ></div>
+        <div class="cell" ></div>
+        <div class="cell" ></div>
+        <div class="cell" ></div>
       </div>
       <div class="valueContents">
         <div class="playerScores">
           <div>
             <p id="player1NameDisplay">Player name,</p>
-            <p >Score:</p>
+            <p>Score:</p>
             <p id="player1Score">0</p>
           </div>
           <div>
