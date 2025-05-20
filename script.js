@@ -1,13 +1,18 @@
 const tictactoe = (function () {
+  //players are being stored here
   const gamePlayer = [];
+  //for turn management
   let currentPlayerIndex = -1;
+  //for performance when to check for wins
   let turns = 0;
   let roundWin = false;
 
+  //gameboard 
   const gameBoard = {
     Board: ["", "", "", "", "", "", "", "", ""],
   };
 
+  //all winning combinations seperated
   const winningCombinations = {
     Rows: [
       [0, 1, 2],
@@ -41,7 +46,6 @@ const tictactoe = (function () {
       console.log(`Please register 2 players, before you start playing!`);
       return null;
     }
-    const currentPlayer = gamePlayer[currentPlayerIndex];
     if (index < 0 || index >= gameBoard.Board.length) {
       console.log("Invalid Index! Choose from 0 - 8");
       return null;
@@ -54,10 +58,10 @@ const tictactoe = (function () {
       return null;
     }
 
-    gameBoard.Board[index] = currentPlayer.marker;
+    gameBoard.Board[index] = gamePlayer[currentPlayerIndex].marker;
     turns++;
     if (turns >= 5) {
-      checkRoundWinner(currentPlayer);
+      checkRoundWinner(gamePlayer[currentPlayerIndex]);
     }
 
     if (roundWin === true) {
@@ -74,20 +78,23 @@ const tictactoe = (function () {
     console.log(gameBoard.Board);
   };
 
-  function checkRoundWinner(currentPlayer) {
+  function checkRoundWinner() {
     winningCombinations.Rows.forEach((rowLine) => {
       console.log(rowLine);
       if (
-        gameBoard.Board[rowLine[0]] === currentPlayer.marker &&
-        gameBoard.Board[rowLine[1]] === currentPlayer.marker &&
-        gameBoard.Board[rowLine[2]] === currentPlayer.marker
+        gameBoard.Board[rowLine[0]] === gamePlayer[currentPlayerIndex].marker &&
+        gameBoard.Board[rowLine[1]] === gamePlayer[currentPlayerIndex].marker &&
+        gameBoard.Board[rowLine[2]] === gamePlayer[currentPlayerIndex].marker
       ) {
-        currentPlayer.giveScore();
+        gamePlayer[currentPlayerIndex].giveScore();
+        updateFrontEndPlayerScore();
         newRound();
         console.log(
           `${
-            currentPlayer.name
-          } has won the round! Players score is now: ${currentPlayer.getScore()}`
+            gamePlayer[currentPlayerIndex].name
+          } has won the round! Players score is now: ${gamePlayer[
+            currentPlayerIndex
+          ].getScore()}`
         );
         roundWin = true;
       }
@@ -96,16 +103,19 @@ const tictactoe = (function () {
     winningCombinations.Columns.forEach((rowLine) => {
       console.log(rowLine);
       if (
-        gameBoard.Board[rowLine[0]] === currentPlayer.marker &&
-        gameBoard.Board[rowLine[1]] === currentPlayer.marker &&
-        gameBoard.Board[rowLine[2]] === currentPlayer.marker
+        gameBoard.Board[rowLine[0]] === gamePlayer[currentPlayerIndex].marker &&
+        gameBoard.Board[rowLine[1]] === gamePlayer[currentPlayerIndex].marker &&
+        gameBoard.Board[rowLine[2]] === gamePlayer[currentPlayerIndex].marker
       ) {
-        currentPlayer.giveScore();
+        gamePlayer[currentPlayerIndex].giveScore();
+        updateFrontEndPlayerScore();
         newRound();
         console.log(
           `${
-            currentPlayer.name
-          } has won the round! Players score is now: ${currentPlayer.getScore()}`
+            gamePlayer[currentPlayerIndex].name
+          } has won the round! Players score is now: ${gamePlayer[
+            currentPlayerIndex
+          ].getScore()}`
         );
         roundWin = true;
       }
@@ -114,16 +124,19 @@ const tictactoe = (function () {
     winningCombinations.Diagonal.forEach((rowLine) => {
       console.log(rowLine);
       if (
-        gameBoard.Board[rowLine[0]] === currentPlayer.marker &&
-        gameBoard.Board[rowLine[1]] === currentPlayer.marker &&
-        gameBoard.Board[rowLine[2]] === currentPlayer.marker
+        gameBoard.Board[rowLine[0]] === gamePlayer[currentPlayerIndex].marker &&
+        gameBoard.Board[rowLine[1]] === gamePlayer[currentPlayerIndex].marker &&
+        gameBoard.Board[rowLine[2]] === gamePlayer[currentPlayerIndex].marker
       ) {
-        currentPlayer.giveScore();
+        gamePlayer[currentPlayerIndex].giveScore();
+        updateFrontEndPlayerScore();
         newRound();
         console.log(
           `${
-            currentPlayer.name
-          } has won the round! Players score is now: ${currentPlayer.getScore()}`
+            gamePlayer[currentPlayerIndex].name
+          } has won the round! Players score is now: ${gamePlayer[
+            currentPlayerIndex
+          ].getScore()}`
         );
         roundWin = true;
       }
@@ -193,6 +206,8 @@ const tictactoe = (function () {
     gamePlayer.length = 0;
     gameBoard.Board = ["", "", "", "", "", "", "", "", ""];
     currentPlayerIndex = -1;
+    updateFrontEndGameBoard();
+    updateFrontEndPlayerScore();
     console.log(
       `The game has been reset. Please enter new Players and play again!`
     );
@@ -220,13 +235,26 @@ const tictactoe = (function () {
 
   function updateFrontEndGameBoard() {
     const cells = document.querySelectorAll(".cell");
+    const gameBoard = tictactoe.getGameBoard();
     cells.forEach((cell, index) => {
-      const gameBoard = tictactoe.getGameBoard();
       cell.innerText = gameBoard[index];
     });
   }
 
-  function updateFrontEndPlayerScore(currentPlayer) {}
+  function updateFrontEndPlayerScore() {
+    const player1Score = document.querySelector("#player1Score");
+    const player2Score = document.querySelector("#player2Score");
+
+    if (currentPlayerIndex === 0) {
+      player1Score.innerText = gamePlayer[currentPlayerIndex].getScore();
+    } else if (currentPlayerIndex === 1) {
+      player2Score.innerText = gamePlayer[currentPlayerIndex].getScore();
+    } else {
+      console.log("Game Reset Time wow");
+      player1Score.innerText = 0;
+      player2Score.innerText = 0;
+    }
+  }
 
   return {
     makeMove,
@@ -237,16 +265,6 @@ const tictactoe = (function () {
     getCurrentPlayerIndex,
   };
 })();
-
-/* HOW A GAME WORKS IN CONSOLE 
-
-- 1: tictactoe.addPlayer("name", "marker"); \\ this adds the first player to the game.
-- 2: tictactoe.addPlayer("name", "marker"); \\ this adds the second player to the game.
-- 3: tictactoe.makeMove(position); \\ the first player starts by making a move at a position in the Board. After the turn is done it switches to the next player.
-- 4: Just keep on playing until either of the 2 players has won or the game has turned into a draw.
-
-! tictactoe.gameReset(); \\ Resets the entire game, needing to input new players etc.
-*/
 
 document.addEventListener("DOMContentLoaded", function () {
   const dialog = document.getElementById("dialog");
@@ -342,6 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
     currenTurnText.innerText = `Current turn: ${
       allPlayers[tictactoe.getCurrentPlayerIndex()].name
     }, ${allPlayers[tictactoe.getCurrentPlayerIndex()].marker}`;
+    form.reset();
     dialog.close();
   });
 
@@ -356,9 +375,11 @@ document.addEventListener("DOMContentLoaded", function () {
       cell.innerText = gameBoard[index];
     });
   });
-});
 
-/* TODO
-display player scores properly
-styling for the gameboard markers
-*/
+  const resetGameBtn = document.querySelector("#resetGameBtn");
+
+  resetGameBtn.addEventListener("click", () => {
+    tictactoe.gameReset();
+    dialog.showModal();
+  });
+});
